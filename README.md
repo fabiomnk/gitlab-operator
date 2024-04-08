@@ -1,5 +1,14 @@
-mkdir gitlab-operator
-cd gitlab-operator
-operator-sdk init --domain github.com/fabiomnk/gitlab-operator --plugins helm
+operator-sdk init \
+    --domain fabiomnk.co \
+    --project-version 3 \
+    --plugins go/v4 \
+    --repo github.com/fabiomnk/github-operator 
 
-operator-sdk create api --group apps --version v1alpha1 --kind Gitlab
+operator-sdk create api \
+    --version v1alpha1 \
+    --group gitlab \
+    --kind Project \
+    --resource \
+    --controller 
+
+    

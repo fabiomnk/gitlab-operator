@@ -2,11 +2,22 @@
 # This file is used to track the info used to scaffold your project
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
-domain: github.com/fabiomnk/gitlab-operator
+domain: fabiomnk.co
 layout:
-- helm.sdk.operatorframework.io/v1
+- go.kubebuilder.io/v4
 plugins:
   manifests.sdk.operatorframework.io/v2: {}
   scorecard.sdk.operatorframework.io/v2: {}
 projectName: gitlab-operator
+repo: github.com/fabiomnk/github-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: fabiomnk.co
+  group: gitlab
+  kind: Project
+  path: github.com/fabiomnk/github-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"
