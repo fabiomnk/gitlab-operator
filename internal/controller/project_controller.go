@@ -63,7 +63,6 @@ func (r *ProjectReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 	}
 
 	l.Info("Start Reconciliation")
-	// TODO(user): your logic here
 	project := &gitlabv1alpha1.Project{}
 	err = r.Client.Get(ctx, req.NamespacedName, project)
 	l.Info(fmt.Sprintf("reconciliate project: %s", project.Spec.Name))
@@ -76,22 +75,6 @@ func (r *ProjectReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		l.Error(err, "Could not fetch request")
 		return ctrl.Result{Requeue: true}, err
 	}
-
-	//secret := &coreV1.Secret{}
-	//
-	//err = r.Client.Get(ctx, client.ObjectKey{
-	//	Name:      project.Spec.GitlabSecretName,
-	//	Namespace: req.Namespace,
-	//}, secret)
-	//
-	//if err != nil {
-	//	l.Error(err, "could not fetch secret")
-	//	panic(err)
-	//}
-
-	//gitlab_pat := secret.Data[project.Spec.GitlabSecretKey]
-
-	//l.Info(fmt.Sprintf("fetched secret %s pat: %s", secret.Name, gitlab_pat))
 
 	// check if already exists
 	proj, err := ProjectsExists(ctx, git, project.Spec.Name)
@@ -123,6 +106,7 @@ func (r *ProjectReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 
 	l.Info(fmt.Sprintf("configuring project: %s with id: %b", proj.Name, proj.ID))
 
+	// edit existing project
 	epo := &gitlab.EditProjectOptions{
 		Description: &project.Spec.Description,
 	}
