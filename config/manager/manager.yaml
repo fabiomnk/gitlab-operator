@@ -77,6 +77,12 @@ spec:
           capabilities:
             drop:
             - "ALL"
+        env:
+          - name: GITLAB_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: gitlab-credentials
+                key: personalAccessToken
         livenessProbe:
           httpGet:
             path: /healthz
